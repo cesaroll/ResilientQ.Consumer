@@ -56,7 +56,7 @@ public static class ConfigurationLoader
     /// </summary>
     /// <param name="config">Configuration to validate</param>
     /// <exception cref="InvalidOperationException">Thrown when configuration is invalid</exception>
-    private static void ValidateConfiguration(KafkaConsumerConfiguration config)
+    public static void ValidateConfiguration(KafkaConsumerConfiguration config)
     {
         if (string.IsNullOrWhiteSpace(config.TopicName))
         {
