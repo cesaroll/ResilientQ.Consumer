@@ -83,14 +83,42 @@ public static class ConfigurationLoader
             throw new InvalidOperationException("ConsumerNumber must be at least 1");
         }
 
-        if (config.RetryPolicy.RetryAttempts < 0)
+        // Validate retry topics configuration
+        if (config.RetryPolicy.RetryTopics.Any())
         {
-            throw new InvalidOperationException("RetryPolicy.RetryAttempts cannot be negative");
-        }
+            for (int i = 0; i < config.RetryPolicy.RetryTopics.Count; i++)
+            {
+                var retryTopic = config.RetryPolicy.RetryTopics[i];
 
-        if (config.RetryPolicy.Delay < 0)
+                if (string.IsNullOrWhiteSpace(retryTopic.TopicName))
+                {
+                    throw new InvalidOperationException($"RetryPolicy.RetryTopics[{i}].TopicName is required");
+                }
+
+                if (string.IsNullOrWhiteSpace(retryTopic.Delay))
+                {
+                    throw new InvalidOperationException($"RetryPolicy.RetryTopics[{i}].Delay is required");
+                }
+
+                // Validate delay format
+                try
+                {
+                    retryTopic.GetDelayTimeSpan();
+                }
+                catch (FormatException ex)
+                {
+                    throw new InvalidOperationException($"RetryPolicy.RetryTopics[{i}].Delay has invalid format: {ex.Message}");
+                }
+
+                if (retryTopic.RetryAttempts < 0)
+                {
+                    throw new InvalidOperationException($"RetryPolicy.RetryTopics[{i}].RetryAttempts cannot be negative");
+                }
+            }
+        }
+        else
         {
-            throw new InvalidOperationException("RetryPolicy.Delay cannot be negative");
+            throw new InvalidOperationException("RetryPolicy.RetryTopics must contain at least one retry topic configuration");
         }
     }
 }

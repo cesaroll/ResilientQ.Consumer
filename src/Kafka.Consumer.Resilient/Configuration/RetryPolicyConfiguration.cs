@@ -6,13 +6,9 @@ namespace Ces.Kafka.Consumer.Resilient.Configuration;
 public class RetryPolicyConfiguration
 {
     /// <summary>
-    /// Delay between retry attempts in milliseconds
+    /// Array of retry topics with individual configuration
+    /// Each retry topic can have its own delay, retry attempts, and group ID
     /// </summary>
-    public int Delay { get; set; } = 1000;
-
-    /// <summary>
-    /// Maximum number of retry attempts
-    /// </summary>
-    public int RetryAttempts { get; set; } = 3;
+    public List<RetryTopicConfiguration> RetryTopics { get; set; } = new();
 }
 
