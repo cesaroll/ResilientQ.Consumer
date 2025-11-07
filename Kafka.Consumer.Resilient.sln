@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafka.Consumer.Resilient", "Kafka.Consumer.Resilient\Kafka.Consumer.Resilient.csproj", "{8401D012-F5C8-4A1E-9766-F544A3A2A961}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafka.Consumer.Resilient", "src\Kafka.Consumer.Resilient\Kafka.Consumer.Resilient.csproj", "{8401D012-F5C8-4A1E-9766-F544A3A2A961}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafka.Consumer.Resilient.Example", "Kafka.Consumer.Resilient.Example\Kafka.Consumer.Resilient.Example.csproj", "{057E2FDB-38B0-4509-B00B-72388CE6F8C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafka.Consumer.Resilient.Example", "example\Kafka.Consumer.Resilient.Example\Kafka.Consumer.Resilient.Example.csproj", "{057E2FDB-38B0-4509-B00B-72388CE6F8C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafka.Consumer.Resilient.AvroProducer", "Kafka.Consumer.Resilient.AvroProducer\Kafka.Consumer.Resilient.AvroProducer.csproj", "{2574127C-313F-44BF-8121-4C958E69AF70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafka.Consumer.Resilient.AvroProducer", "example\Kafka.Consumer.Resilient.AvroProducer\Kafka.Consumer.Resilient.AvroProducer.csproj", "{2574127C-313F-44BF-8121-4C958E69AF70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

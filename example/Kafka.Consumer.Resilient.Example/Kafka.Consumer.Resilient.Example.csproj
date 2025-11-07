@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kafka.Consumer.Resilient\Kafka.Consumer.Resilient.csproj" />
+    <ProjectReference Include="..\..\src\Kafka.Consumer.Resilient\Kafka.Consumer.Resilient.csproj" />
   </ItemGroup>
 
   <ItemGroup>

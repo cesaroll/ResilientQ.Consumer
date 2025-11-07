@@ -18,33 +18,6 @@ A resilient Kafka consumer library for .NET with automatic retry logic, dead let
 
 ## Quick Start
 
-### 1. Start Kafka Infrastructure
-
-```bash
-# Start Kafka, Schema Registry, and Kafka UI
-make up
-
-# Verify everything is running
-make ps
-```
-
-### 2. Produce Test Messages
-
-```bash
-# Produce JSON messages with keys
-make produce
-
-# Or use kcat for quick testing (recommended)
-echo 'ORD-001:{"OrderId":"ORD-001","CustomerId":"CUST-100","Amount":99.99,"OrderDate":"2025-11-06T23:00:00Z","Status":"Pending"}' | \
-  kcat -b localhost:9092 -t orders -P -K:
-```
-
-### 3. Run the Example Consumer
-
-```bash
-make run
-```
-
 ## Installation
 
 ### As a NuGet Package
@@ -53,13 +26,6 @@ make run
 dotnet add package Ces.Kafka.Consumer.Resilient
 ```
 
-### From Source
-
-```bash
-git clone https://github.com/cesarl/Ces.Kafka.Consumer.Resilient.git
-cd Ces.Kafka.Consumer.Resilient
-dotnet build
-```
 
 ## Configuration
 
@@ -231,7 +197,7 @@ Consumer processes message
 
 ## Working with Avro
 
-The library automatically handles both JSON and Avro messages. See [AVRO_GUIDE.md](AVRO_GUIDE.md) for detailed information.
+The library automatically handles both JSON and Avro messages. See [AVRO_GUIDE.md](example/AVRO_GUIDE.md) for detailed information.
 
 ### Quick Avro Setup
 
@@ -260,77 +226,12 @@ The library automatically handles both JSON and Avro messages. See [AVRO_GUIDE.m
 
 3. **Produce Avro Messages**:
    ```bash
+   cd example
    make produce-avro
    ```
 
 4. **Your handler stays the same!** The library automatically deserializes Avro messages.
 
-## Docker Infrastructure
-
-The project includes a complete Docker Compose setup:
-
-- **Kafka** (KRaft mode - no Zookeeper needed!)
-- **Schema Registry** for Avro support
-- **Kafka UI** for monitoring
-
-```bash
-# Start infrastructure
-make up
-
-# View logs
-make logs
-
-# List topics
-make topics
-
-# Stop infrastructure
-make down
-
-# Clean everything (including volumes)
-make clean
-```
-
-## Makefile Commands
-
-| Command | Description |
-|---------|-------------|
-| `make up` | Start all Docker containers |
-| `make down` | Stop all containers |
-| `make restart` | Restart all containers |
-| `make ps` | Show container status |
-| `make logs` | View container logs |
-| `make topics` | List Kafka topics |
-| `make produce` | Produce JSON test messages |
-| `make produce-avro` | Produce Avro test messages |
-| `make run` | Run example consumer |
-| `make build` | Build the solution |
-| `make test` | Run tests |
-| `make clean` | Clean and remove all data |
-
-## Monitoring
-
-### Kafka UI
-Access at http://localhost:8080
-
-- View topics and messages
-- Monitor consumer groups
-- Inspect schemas
-- Real-time message browser
-
-### Schema Registry
-Access at http://localhost:8081
-
-- View registered schemas
-- Check schema versions
-- Test compatibility
-
-```bash
-# List all schemas
-curl http://localhost:8081/subjects
-
-# Get latest schema for orders topic
-curl http://localhost:8081/subjects/orders-value/versions/latest
-```
 
 ## Topic Naming Strategy
 
@@ -342,17 +243,6 @@ The library follows this naming convention:
 
 ## Development
 
-### Building the Package
-
-```bash
-dotnet build --configuration Release
-```
-
-### Running Tests
-
-```bash
-dotnet test
-```
 
 ### Creating a NuGet Package
 
@@ -360,35 +250,31 @@ dotnet test
 dotnet pack --configuration Release
 ```
 
+## Project Structure
+
+```
+Ces.Kafka.Consumer.Resilient/
+├── src/
+│   └── Kafka.Consumer.Resilient/      # Main library (NuGet package)
+├── example/
+│   ├── Kafka.Consumer.Resilient.Example/    # Consumer example
+│   ├── Kafka.Consumer.Resilient.AvroProducer/  # Avro producer example
+│   ├── docker-compose.yml              # Kafka infrastructure
+│   ├── Makefile                        # Development commands
+│   └── Documentation (see below)
+├── tests/
+│   └── (Test projects)
+└── Kafka.Consumer.Resilient.sln        # Solution file
+```
+
 ## Documentation
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) - Technical architecture and design decisions
-- [AVRO_GUIDE.md](AVRO_GUIDE.md) - Complete guide to working with Avro messages
-- [KCAT_GUIDE.md](KCAT_GUIDE.md) - **kcat quick reference for testing and debugging**
-- [KAFKA_SETUP.md](KAFKA_SETUP.md) - Detailed Kafka infrastructure setup
-- [Example README](Kafka.Consumer.Resilient.Example/README.md) - Example application guide
+- [example/AVRO_GUIDE.md](example/AVRO_GUIDE.md) - Complete guide to working with Avro messages
+- [example/KCAT_GUIDE.md](example/KCAT_GUIDE.md) - **kcat quick reference for testing and debugging**
+- [example/KAFKA_SETUP.md](example/KAFKA_SETUP.md) - Detailed Kafka infrastructure setup
+- [Example README](example/Kafka.Consumer.Resilient.Example/README.md) - Example application guide
 
-## Example Output
-
-```
-=== Ces.Kafka.Consumer.Resilient Example ===
-
-Starting Kafka consumer...
-Configuration:
-  - Topic: orders
-  - Consumer Count: 2
-  - Group ID: order-processor-group
-  - Bootstrap Servers: localhost:9092
-  - Retry Attempts: 3
-  - Retry Delay: 2000ms
-  - Error Topic: orders.error
-
-[Consumer-1] Processing order ORD-001 for customer CUST-076, amount: $123.42
-[Consumer-2] Processing order ORD-002 for customer CUST-011, amount: $299.10
-[Consumer-1] ✅ Order ORD-001 processed successfully
-[Consumer-2] ⚠️  Retryable error for ORD-002: Database timeout
-[Consumer-2] → Sending to retry topic: orders.retry.1
-```
 
 ## Troubleshooting
 
@@ -405,22 +291,6 @@ make logs
 make restart
 ```
 
-### Schema Registry Issues
-
-```bash
-# Check Schema Registry
-curl http://localhost:8081/subjects
-
-# View Schema Registry logs
-docker logs schema-registry
-```
-
-### Consumer Not Processing Messages
-
-1. Check if topics exist: `make topics`
-2. Verify consumer group: Check Kafka UI at http://localhost:8080
-3. Check logs: `make logs`
-4. Ensure correct configuration in `appsettings.json`
 
 ## Requirements
 
@@ -432,13 +302,10 @@ docker logs schema-registry
 
 MIT License - see LICENSE file for details
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Author
 
-Cesar L
+César López
 
 ## Links
 

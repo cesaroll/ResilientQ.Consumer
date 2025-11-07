@@ -82,13 +82,13 @@ produce-avro:
 # Application commands
 run:
 	@echo "🏃 Running example consumer..."
-	dotnet run --project Kafka.Consumer.Resilient.Example/Kafka.Consumer.Resilient.Example.csproj
+	dotnet run --project ./Kafka.Consumer.Resilient.Example/Kafka.Consumer.Resilient.Example.csproj
 
 build:
 	@echo "🔨 Building solution..."
-	dotnet build --configuration Release
+	dotnet build ../Kafka.Consumer.Resilient.sln --configuration Release
 
 test:
 	@echo "🧪 Running tests..."
-	dotnet test
+	dotnet test ../Kafka.Consumer.Resilient.sln
 
