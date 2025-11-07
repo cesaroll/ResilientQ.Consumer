@@ -19,7 +19,11 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="appsettings.Docker.json" />
     <EmbeddedResource Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="appsettings.Docker.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Update="Schemas\*.avsc">
