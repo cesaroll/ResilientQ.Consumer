@@ -1,0 +1,28 @@
+{
+  "type": "record",
+  "name": "WeatherForecast",
+  "namespace": "Ces.Weather.Contracts.Models",
+  "fields": [
+    {
+      "name": "DateTime",
+      "type": "string",
+      "doc": "ISO 8601 formatted date and time in UTC"
+    },
+    {
+      "name": "City",
+      "type": "string",
+      "doc": "City name"
+    },
+    {
+      "name": "Temperature",
+      "type": "int",
+      "doc": "Temperature in Celsius"
+    },
+    {
+      "name": "Summary",
+      "type": "string",
+      "doc": "Weather summary description"
+    }
+  ]
+}
+

@@ -6,6 +6,7 @@ using Confluent.SchemaRegistry.Serdes;
 using Ces.Kafka.Consumer.Resilient.Configuration;
 using Ces.Kafka.Consumer.Resilient.Interfaces;
 using Ces.Kafka.Consumer.Resilient.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -18,7 +19,7 @@ namespace Ces.Kafka.Consumer.Resilient.Services;
 public class ResilientKafkaConsumer<TMessage> : IResilientKafkaConsumer<TMessage> where TMessage : class
 {
     private readonly KafkaConsumerConfiguration _configuration;
-    private readonly IMessageHandler<TMessage> _messageHandler;
+    private readonly IServiceProvider _serviceProvider;
     private readonly ILogger<ResilientKafkaConsumer<TMessage>> _logger;
     private readonly List<Task> _consumerTasks = new();
     private readonly CancellationTokenSource _internalCts = new();
@@ -27,11 +28,11 @@ public class ResilientKafkaConsumer<TMessage> : IResilientKafkaConsumer<TMessage
 
     public ResilientKafkaConsumer(
         IOptions<KafkaConsumerConfiguration> configuration,
-        IMessageHandler<TMessage> messageHandler,
+        IServiceProvider serviceProvider,
         ILogger<ResilientKafkaConsumer<TMessage>> logger)
     {
         _configuration = configuration.Value;
-        _messageHandler = messageHandler;
+        _serviceProvider = serviceProvider;
         _logger = logger;
 
         // Determine if we're using Avro based on whether SchemaRegistryUrl is configured
@@ -215,8 +216,13 @@ public class ResilientKafkaConsumer<TMessage> : IResilientKafkaConsumer<TMessage
                 Timestamp = consumeResult.Message.Timestamp.UtcDateTime
             };
 
-            // Process the message
-            var result = await _messageHandler.HandleAsync(message, metadata, cancellationToken);
+            // Process the message using a scoped handler
+            ConsumerResult result;
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var handler = scope.ServiceProvider.GetRequiredService<IMessageHandler<TMessage>>();
+                result = await handler.HandleAsync(message, metadata, cancellationToken);
+            }
 
             // Handle the result
             await HandleResultAsync(

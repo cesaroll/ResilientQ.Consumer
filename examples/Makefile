@@ -112,11 +112,11 @@ topics:
 
 produce:
 	@echo "📤 Producing test JSON messages..."
-	@./produce-test-messages.sh $(or $(N),10)
+	@./Example.Console/produce-test-messages.sh $(or $(N),10)
 
 produce-avro:
 	@echo "📤 Producing Avro messages via REST Proxy..."
-	@./produce-avro-messages.sh $(or $(N),10)
+	@./Example.Console/produce-avro-messages.sh $(or $(N),10)
 
 # Application commands
 run-console:
