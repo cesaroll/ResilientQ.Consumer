@@ -2,7 +2,7 @@ using Confluent.Kafka;
 using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 
-namespace Example;
+namespace Example.ConsoleApp;
 
 /// <summary>
 /// Example Avro producer for testing

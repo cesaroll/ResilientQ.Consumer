@@ -2,7 +2,7 @@ using Ces.Kafka.Consumer.Resilient.Interfaces;
 using Ces.Kafka.Consumer.Resilient.Models;
 using Microsoft.Extensions.Logging;
 
-namespace Example;
+namespace Example.ConsoleApp;
 
 /// <summary>
 /// Example message handler for order messages

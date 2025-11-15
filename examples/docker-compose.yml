@@ -1,9 +1,10 @@
 services:
-  example-consumer:
+  
+  example-console:
     build:
       context: ../
-      dockerfile: example/Example/Dockerfile
-    container_name: example-consumer
+      dockerfile: examples/Example.Console/Dockerfile
+    container_name: example-console
     depends_on:
       kafka:
         condition: service_started
@@ -15,6 +16,10 @@ services:
       ASPNETCORE_ENVIRONMENT: Docker
       DOTNET_ENVIRONMENT: Docker
     restart: unless-stopped
+  
+  # ########################
+  # Kafka
+  # ########################
   kafka:
     image: confluentinc/cp-kafka:7.8.0
     hostname: kafka
@@ -134,3 +139,7 @@ services:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
       KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
+
+  # ########################
+  # Kafka
+  # ########################

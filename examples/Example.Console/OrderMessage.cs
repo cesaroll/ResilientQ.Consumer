@@ -1,7 +1,7 @@
 using Avro;
 using Avro.Specific;
 
-namespace Example;
+namespace Example.ConsoleApp;
 
 /// <summary>
 /// Example message model - Implements ISpecificRecord for Avro deserialization
@@ -12,7 +12,7 @@ public class OrderMessage : ISpecificRecord
     public static Schema _SCHEMA = Schema.Parse(@"{
         ""type"": ""record"",
         ""name"": ""OrderMessage"",
-        ""namespace"": ""Example"",
+        ""namespace"": ""Example.ConsoleApp"",
         ""fields"": [
             {""name"": ""OrderId"", ""type"": ""string""},
             {""name"": ""CustomerId"", ""type"": ""string""},

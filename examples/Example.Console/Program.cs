@@ -1,5 +1,5 @@
 ﻿using Ces.Kafka.Consumer.Resilient.Extensions;
-using Example;
+using Example.ConsoleApp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

@@ -6,7 +6,8 @@ help:
 	@echo ""
 	@echo "Docker Compose:"
 	@echo "  make up                - Start infrastructure (Kafka, Schema Registry, Kafka UI)"
-	@echo "  make up-with-consumer  - Start all services including Example consumer"
+	@echo "  make up-console        - Start all services including Example.Console consumer"
+	@echo "  make up-api            - Start all services including Example.Api consumer"
 	@echo "  make down              - Stop all services"
 	@echo "  make restart           - Restart all services"
 	@echo "  make clean             - Stop services and remove volumes (fresh start)"
@@ -16,7 +17,8 @@ help:
 	@echo "  make logs              - Show logs from all services"
 	@echo "  make logs-kafka        - Show Kafka logs"
 	@echo "  make logs-init         - Show init-kafka logs (topic creation)"
-	@echo "  make logs-consumer     - Show Example consumer logs"
+	@echo "  make logs-console      - Show Example console logs"
+	@echo "  make logs-api          - Show Example api logs"
 	@echo ""
 	@echo "Kafka Operations:"
 	@echo "  make topics            - List all Kafka topics"
@@ -26,9 +28,14 @@ help:
 	@echo "  make produce-avro N=20 - Produce N test Avro messages"
 	@echo ""
 	@echo "Application:"
-	@echo "  make run               - Run the example consumer locally (not in Docker)"
 	@echo "  make build             - Build the solution"
-	@echo "  make build-docker      - Build Docker image for Example consumer"
+	@echo "Example Console"
+	@echo "  make run-console       - Run the example console consumer locally (not in Docker)"
+	@echo "  make build-console     - Build Docker image for Example console consumer"
+	@echo "Example Api"
+	@echo "  make run-api           - Run the example api consumer locally (not in Docker)"
+	@echo "  make build-api         - Build Docker image for Example api consumer"
+	@echo "Tests"
 	@echo "  make test              - Run tests (if available)"
 	@echo ""
 	@echo "Quick Start (Local):"
@@ -47,11 +54,11 @@ up:
 	@echo "  Kafka REST:      localhost:8082"
 	@echo "  Kafka UI:        http://localhost:8080"
 	@echo ""
-	@echo "💡 Tip: Run 'make up-with-consumer' to also start the Example consumer"
+	@echo "💡 Tip: Run 'make up-console/up-api' to also start the Example consumer"
 
-up-with-consumer:
+up-console:
 	@echo "🚀 Starting all services including Example consumer..."
-	make build-docker; docker-compose up -d
+	make build-console; docker-compose up -d example-console kafka-rest kafka-ui
 	@echo "✓ All services started!"
 	@echo "  Kafka:            localhost:9092"
 	@echo "  Schema Registry:  localhost:8081"
@@ -59,7 +66,7 @@ up-with-consumer:
 	@echo "  Kafka UI:         http://localhost:8080"
 	@echo "  Example Consumer: Running in container"
 	@echo ""
-	@echo "💡 View consumer logs with: make logs-consumer"
+	@echo "💡 View consumer logs with: make logs-console"
 
 down:
 	@echo "🛑 Stopping services..."
@@ -89,8 +96,8 @@ logs-kafka:
 logs-init:
 	docker logs init-kafka
 
-logs-consumer:
-	docker logs -f example-consumer
+logs-console:
+	docker logs -f example-console
 
 # Kafka operations
 topics:
@@ -106,9 +113,9 @@ produce-avro:
 	@./produce-avro-messages.sh $(or $(N),10)
 
 # Application commands
-run:
+run-console:
 	@echo "🏃 Running example consumer..."
-	dotnet run --project ./Example/Example.csproj
+	dotnet run --project ./Example.Console/Example.Console.csproj
 
 build:
 	@echo "🔨 Building solution..."
@@ -118,8 +125,8 @@ test:
 	@echo "🧪 Running tests..."
 	dotnet test ../Kafka.Consumer.Resilient.sln
 
-build-docker:
-	@echo "🐳 Building Docker image for Example consumer..."
-	docker-compose build example-consumer
+build-console:
+	@echo "🐳 Building Docker image for Example console..."
+	docker-compose build example-console
 	@echo "✓ Docker image built successfully!"
 
