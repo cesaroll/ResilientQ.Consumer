@@ -1,6 +1,12 @@
 # Changelog
 
-All notable changes to the Ces.Kafka.Consumer.Resilient project will be documented in this file.
+All notable changes to the ResilientQ.Consumer.Kafka project will be documented in this file.
+
+## [1.7.0] - 2025-11-14
+
+### Changed
+- **Fixes and refactoring
+- Renaming for better maintainability
 
 ## [1.6.0] - 2025-11-14
 
@@ -52,7 +58,7 @@ All notable changes to the Ces.Kafka.Consumer.Resilient project will be document
 ## [1.0.0] - 2024-11-14
 
 ### Added
-- Initial release of Ces.Kafka.Consumer.Resilient library
+- Initial release of ResilientQ.Consumer.Kafka library
 - Resilient Kafka consumer with automatic retry logic
 - Support for JSON and Avro message formats
 - Configurable retry policies with custom delays and attempts

@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ResilientQ.Consumer.Kafka</RootNamespace>
+
+    <!-- NuGet Package Properties -->
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>ResilientQ.Consumer.Kafka</PackageId>
+    <Version>1.7.0</Version>
+    <Authors>Cesar L</Authors>
+    <Company>Cesar L</Company>
+    <Copyright>Copyright (c) 2025 Cesar L</Copyright>
+    <Description>A resilient Kafka consumer library for .NET with automatic retry logic, dead letter queue pattern, and support for both JSON and Avro messages. Features include configurable retry attempts, Schema Registry support, dependency injection, and comprehensive logging.</Description>
+    <PackageTags>kafka;consumer;resilient;dotnet;avro;schema-registry;dead-letter-queue;retry;confluent</PackageTags>
+    <PackageProjectUrl>https://github.com/cesarl/ResilientQ.Consumer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/cesarl/ResilientQ.Consumer</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>See CHANGELOG.md for release notes</PackageReleaseNotes>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\CHANGELOG.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Confluent.Kafka" Version="2.12.0" />
+    <PackageReference Include="Confluent.SchemaRegistry" Version="2.12.0" />
+    <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.12.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>

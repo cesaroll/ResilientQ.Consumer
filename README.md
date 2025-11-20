@@ -1,4 +1,4 @@
-# Ces.Kafka.Consumer.Resilient
+# ResilientQ.Consumer.Kafka
 
 A resilient Kafka consumer library for .NET with automatic retry logic, dead letter queue pattern, and support for both JSON and Avro messages.
 
@@ -23,7 +23,7 @@ A resilient Kafka consumer library for .NET with automatic retry logic, dead let
 
 ```csharp
 // 1. Install the package
-// dotnet add package Ces.Kafka.Consumer.Resilient
+// dotnet add package ResilientQ.Consumer.Kafka
 
 // 2. Create your message handler
 public class OrderMessageHandler : IMessageHandler<OrderMessage>
@@ -57,7 +57,7 @@ await host.RunAsync(); // Consumer starts automatically!
 ### As a NuGet Package
 
 ```bash
-dotnet add package Ces.Kafka.Consumer.Resilient
+dotnet add package ResilientQ.Consumer.Kafka
 ```
 
 
@@ -131,8 +131,8 @@ public class OrderMessage
 ### 2. Implement a Message Handler
 
 ```csharp
-using Ces.Kafka.Consumer.Resilient.Interfaces;
-using Ces.Kafka.Consumer.Resilient.Models;
+using ResilientQ.Consumer.Kafka.Interfaces;
+using ResilientQ.Consumer.Kafka.Models;
 
 public class OrderMessageHandler : IMessageHandler<OrderMessage>
 {
@@ -184,7 +184,7 @@ public class OrderMessageHandler : IMessageHandler<OrderMessage>
 ### 3. Register and Start the Consumer
 
 ```csharp
-using Ces.Kafka.Consumer.Resilient.Extensions;
+using ResilientQ.Consumer.Kafka.Extensions;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
@@ -300,13 +300,13 @@ The library follows this naming convention:
 dotnet pack --configuration Release
 
 # Output will be in:
-# src/Kafka.Consumer.Resilient/bin/Release/Ces.Kafka.Consumer.Resilient.1.2.0.nupkg
+# src/ResilientQ.Consumer.Kafka/bin/Release/ResilientQ.Consumer.Kafka.1.2.0.nupkg
 ```
 
 ## Project Structure
 
 ```
-Ces.Kafka.Consumer.Resilient/
+ResilientQ.Consumer.Kafka/
 ├── src/
 │   └── Kafka.Consumer.Resilient/      # Main library (NuGet package)
 ├── example/
@@ -317,7 +317,7 @@ Ces.Kafka.Consumer.Resilient/
 │   └── Documentation (see below)
 ├── tests/
 │   └── (Test projects)
-└── Kafka.Consumer.Resilient.sln        # Solution file
+└── ResilientQ.Consumer.sln        # Solution file
 ```
 
 ## Documentation
@@ -359,6 +359,6 @@ César López
 
 ## Links
 
-- [GitHub Repository](https://github.com/cesarl/Ces.Kafka.Consumer.Resilient)
+- [GitHub Repository](https://github.com/cesarl/ResilientQ.Consumer.Kafka)
 - [Confluent Kafka Documentation](https://docs.confluent.io/)
 - [Apache Avro Documentation](https://avro.apache.org/docs/)
